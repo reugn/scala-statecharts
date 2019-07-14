@@ -3,9 +3,8 @@ package com.github.reugn.statecharts.fsm
 import java.util.concurrent.{Callable, Executors, TimeUnit}
 
 import scala.collection.mutable
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
 import scala.concurrent.duration.{Duration, _}
+import scala.concurrent.{ExecutionContext, Future}
 import scala.language.postfixOps
 import scala.util.control.NonFatal
 
@@ -52,9 +51,10 @@ class FSM[S <: SideEffect, E] private[fsm](private var currentState: S,
       *
       * @param event actual transition event
       * @param d     defer duration
+      * @param ec    implicit execution context
       * @return fsm state
       */
-    def delayedTransition(event: E, d: Duration): Future[S] = {
+    def delayedTransition(event: E, d: Duration)(implicit ec: ExecutionContext): Future[S] = {
         val (t: Long, tu: TimeUnit) = durationToPair(d)
         Future {
             scheduler.schedule((() => transition(event)): Callable[S], t, tu).get
