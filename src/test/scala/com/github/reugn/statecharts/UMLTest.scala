@@ -1,7 +1,8 @@
 package com.github.reugn.statecharts
 
 import com.github.reugn.statecharts.uml.{ActionBlock, ConditionBlock, UML}
-import org.scalatest.{AsyncFlatSpec, Matchers}
+import org.scalatest.flatspec.AsyncFlatSpec
+import org.scalatest.matchers.should.Matchers
 
 import scala.concurrent.Future
 import scala.language.postfixOps
@@ -41,8 +42,8 @@ class UMLTest extends AsyncFlatSpec with Matchers {
             }
         )
 
-        val initialIndex = 0 //can be started from any state in diagram
-        val initialInput = "Foo" //last input that could be saved for further processing
+        val initialIndex = 0 // can be started from any state in the diagram
+        val initialInput = "Foo" // the input that can be saved for further processing
 
         val uml = new UML[String] ~> block1 ~> block2 ~> conditional
         val res = uml.from(initialIndex).iterate(initialInput)

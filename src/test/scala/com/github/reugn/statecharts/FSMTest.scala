@@ -1,9 +1,10 @@
 package com.github.reugn.statecharts
 
 import com.github.reugn.statecharts.fsm._
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class FSMTest extends FlatSpec with Matchers {
+class FSMTest extends AnyFlatSpec with Matchers {
 
     behavior of "FSM"
 
