@@ -1,11 +1,11 @@
 name := "scala-statecharts"
 organization := "com.github.reugn"
 
-scalaVersion := "2.12.8"
-crossScalaVersions := Seq(scalaVersion.value, "2.13.0")
+scalaVersion := "2.12.14"
+crossScalaVersions := Seq(scalaVersion.value, "2.13.6")
 
 libraryDependencies ++= Seq(
-    "org.scalatest" %% "scalatest" % "3.0.8" % Test
+    "org.scalatest" %% "scalatest" % "3.2.9" % Test
 )
 
 scalacOptions := Seq(
