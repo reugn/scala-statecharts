@@ -1,5 +1,5 @@
 name := "scala-statecharts"
-organization := "com.github.reugn"
+organization := "io.github.reugn"
 
 scalaVersion := "2.12.14"
 crossScalaVersions := Seq(scalaVersion.value, "2.13.6")
