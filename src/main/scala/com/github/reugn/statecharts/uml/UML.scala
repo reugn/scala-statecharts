@@ -10,11 +10,10 @@ case class UMLException(msg: String) extends Exception(msg)
 case class UMLResult[T](content: Option[T], lastStep: Int, error: Option[Throwable] = None)
 
 /**
-  * UML statechart class
-  * Models data flow as an UML Diagram
+  * An object that models a data flow as a UML Diagram.
   *
-  * @param i initial state index
-  * @tparam T Block type
+  * @param i the initial state index.
+  * @tparam T the type of a UML [[Block]]s.
   */
 class UML[T](private var i: Int = 0) extends Iterator[Block[T]] {
     self =>
@@ -25,10 +24,10 @@ class UML[T](private var i: Int = 0) extends Iterator[Block[T]] {
     protected var input: T = _
 
     /**
-      * Append UML building block
+      * Appends a building block to the UML.
       *
-      * @param next block to add
-      * @return self
+      * @param next the block to append.
+      * @return [[self]]
       */
     def ~>(next: Block[T]): UML[T] = {
         listBuffer += next
@@ -36,16 +35,17 @@ class UML[T](private var i: Int = 0) extends Iterator[Block[T]] {
     }
 
     /**
-      * Build UML instance
+      * Builds the UML instance.
       *
-      * @return self
+      * @return [[self]]
       */
     def ~>| : UML[T] = {
         list = listBuffer.toList
         self
     }
 
-    /** Tests whether this iterator can provide another element.
+    /**
+      * Tests whether this iterator can provide another element.
       *
       * @return `true` if a subsequent call to `next` will yield an element,
       *         `false` otherwise.
@@ -56,7 +56,8 @@ class UML[T](private var i: Int = 0) extends Iterator[Block[T]] {
         i < list.size
     }
 
-    /** Produces the next element of this iterator.
+    /**
+      * Produces the next element of this iterator.
       *
       * @return the next element of this iterator, if `hasNext` is `true`,
       *         undefined behavior otherwise.
@@ -80,10 +81,10 @@ class UML[T](private var i: Int = 0) extends Iterator[Block[T]] {
     }
 
     /**
-      * Set diagram head index
+      * Sets the diagram head index.
       *
-      * @param ind index
-      * @return self
+      * @param ind the index to set.
+      * @return [[self]]
       */
     def from(ind: Int): UML[T] = {
         i = ind
@@ -93,13 +94,13 @@ class UML[T](private var i: Int = 0) extends Iterator[Block[T]] {
     def getIndex: Int = i - 1
 
     /**
-      * Iterate over the UML diagram
+      * Iterates over the [[UML]] diagram and returns the processing result.
       *
-      * @param initial diagram input
-      * @param >>      result transformer; defaults to UMLResult identity
-      * @param ec      implicit execution context
-      * @tparam R higher kind return value
-      * @return Future of flow result
+      * @param initial the initial diagram input.
+      * @param >>      the result transformer; defaults to the [[UMLResult]] identity function.
+      * @param ec      the implicit execution context.
+      * @tparam R the type of the higher kind return value.
+      * @return a Future of the flow processing result.
       */
     def iterate[R[_]](initial: T, >> : UMLResult[T] => R[T] = identity.apply[UMLResult[T]] _)
                      (implicit ec: ExecutionContext): Future[R[T]] = {
