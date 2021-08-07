@@ -1,5 +1,5 @@
 # scala-statecharts
-[![Build Status](https://travis-ci.org/reugn/scala-statecharts.svg?branch=master)](https://travis-ci.org/reugn/scala-statecharts)
+[![Build](https://github.com/reugn/scala-statecharts/actions/workflows/build.yml/badge.svg)](https://github.com/reugn/scala-statecharts/actions/workflows/build.yml)
 
 A statecharts library written in Scala.
 
