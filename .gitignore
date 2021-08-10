@@ -17,6 +17,7 @@ build
 .classpath
 .project
 .settings
+.bsp
 
 logs
 .DS_Store
